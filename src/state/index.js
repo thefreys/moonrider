@@ -756,6 +756,26 @@ AFRAME.registerState({
       } else {
         state.score.rank = 'F';
       }
+      
+      // save play history for playlist cleanup
+      let playhistory = localStorage.getItem('playhistory');
+      if (playhistory) {
+        try {
+          playhistory = JSON.parse(playhistory);
+        } catch (e) {
+          playhistory = [];
+        }
+      } else {
+        playhistory = [];
+      }
+      let historyChallenge = {}
+      historyChallenge.hash = state.menuSelectedChallenge['versions'][0]['hash']
+      historyChallenge.key = state.menuSelectedChallenge['versions'][0]['key']
+      historyChallenge.difficultyId = state.menuSelectedChallenge['difficultyId']
+      historyChallenge.accuracy = accuracy
+      historyChallenge.accuracydt = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14)
+      playhistory.push(historyChallenge)
+      localStorage.setItem('playhistory', JSON.stringify(playhistory));
 
       computeBeatsText(state);
     },

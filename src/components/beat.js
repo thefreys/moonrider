@@ -481,9 +481,10 @@ AFRAME.registerComponent('beat', {
       this.broken.emit('explode', this.explodeEventDetail, false);
     }
 
-    if (this.beatSystem.data.gameMode === CLASSIC && correctHit) {
-      weaponEl.components.trail.pulse();
-    }
+    // Don't want to feel this
+    // if (this.beatSystem.data.gameMode === CLASSIC && correctHit) {
+    //   weaponEl.components.trail.pulse();
+    // }
   },
 
   /**
